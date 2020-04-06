@@ -1,24 +1,30 @@
 /*jshint esversion: 8*/
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const userTypeModel = require('./personaTypes.model');
 
+let schemaOptions = {
+    timestamps: {
+        createdAt: 'created_at',
+        updatedAt: 'updated_at'
+    }
+};
 
 
 const userSchema = new Schema({
-    strNombre: {
+    strFirstname: {
         type: String,
         required: [true, 'Favor de insertar el nombre']
     },
-    strPrimerApellido: {
+    strMiddleName: {
         type: String,
         required: [true, 'Favor de insertar el apellido']
     },
-    strSegundoApellido: String,
-    strCurp: {
+    strLastName: {
         type: String,
-        required: [true, 'Favor de insertar la CURP']
+        required: [true, 'Favor de insertar el apellido']
     },
-    strCorreo: {
+    strMail: {
         type: String,
         validate: {
             validator: function(v) {
@@ -28,77 +34,7 @@ const userSchema = new Schema({
         },
         required: [true, 'Favor de insertar el Correo']
     },
-    strPassword: String,
-    strCalle: {
-        type: String,
-        required: [true, 'Favor de insertar la calle']
-    },
-    strColonia: {
-        type: String,
-        required: [true, 'Favor de insertar la colonia']
-    },
-    nmbCodigoPostal: {
-        type: Number,
-        required: [true, 'Favor de insertar el numero de la vivienda']
-    },
-    strSexo: {
-        type: String,
-        required: [true, 'Favor de insertar el sexo']
-    },
-    dteFechaNacimiento: {
-        type: Date,
-        required: [true, 'Favor de insertar la fecha de nacimiento']
-    },
-    blnTrabajo: Boolean,
-    strEmpresa: {
-        type: String,
-        default: null
-    },
-    idNacionalidad: {
-        type: Schema.Types.ObjectId,
-        ref: 'Nacionalidad',
-        required: [true, 'Favor de insertar la nacionalidad']
-    },
-    idEmpresa: {
-        type: Schema.Types.ObjectId,
-        ref: 'Empresa'
-    },
-    idModalidadSecundaria: {
-        type: Schema.Types.ObjectId,
-        ref: 'ModalidadSecundaria',
-        required: [true, 'Favor de insertar la modalidad de secundaria']
-    },
-    idEdoCivil: {
-        type: Schema.Types.ObjectId,
-        ref: 'EstadoCivil',
-        required: [true, 'Favor de insertar el estado civil']
-    },
-    strTelefono: String,
-    idMunicipioResidencia: {
-        type: Schema.Types.ObjectId,
-        ref: 'Estado.aJsnMunicipio',
-        required: [true, 'Favor de insertar el municipio']
-    },
-    idMunicipioNacimiento: {
-        type: Schema.Types.ObjectId,
-        ref: 'Estado.aJsnMunicipio'
-    },
-    idModalidadPrepa: {
-        type: Schema.Types.ObjectId,
-        ref: 'ModalidadPrepa',
-        required: [true, 'Favor de insertar la modalidad que se va a recursar']
-    },
-    nmbTiempoSinEstudiarMeses: Number,
-    idEstatusAcademico: {
-        type: Schema.Types.ObjectId,
-        ref: 'EstatusAcademicos',
-        required: [true, 'Favor de insertar el estatus']
-    },
-    strMatricula: String,
-    blnActivo: {
-        type: Boolean,
-        default: true
-    }
-}, { collection: "persona" });
+    idUserType:[userTypeModel.schema]
+}, { collection: "user" }, schemaOptions);
 
-module.exports = mongoose.model('Usuario', userSchema);
+module.exports = mongoose.model('User', userSchema);

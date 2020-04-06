@@ -1,5 +1,6 @@
 /*jshint esversion: 8*/
 const Persona = require('../../models/persona.model');
+const UserType = require('../../models/personaTypes.model');
 const express = require('express');
 const app = express();
 
@@ -14,7 +15,7 @@ const app = express();
 //| Ruta: http://localhost:3000/api/persona/obtener      |
 //|------------------------------------------------------|
 app.get('/obtener', (req, res) => {
-    Persona.find().then((resp) => {
+    Persona.find().populate('userTypes').then((resp) => {
 
         if (resp.length === 0) {
             res.status(404).send({
@@ -106,8 +107,17 @@ app.get('/obtener/:strCorreo', (req, res) => {
 app.post('/registrar', (req, res) => {
 
 
-});
+    const user = new Persona(req.body);
 
+    console.log(user);
+    
+    user.save().then((resp) => {
+        console.log(resp);
+    })
+    .catch((err) => {
+        console.log(err);
+    });
+});
 //|------------------Api PUT Actualiza Persona ---------------|
 //| Creada por:                                               |
 //| Fecha: 10/03/2020                                         |
