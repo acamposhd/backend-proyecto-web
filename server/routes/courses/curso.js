@@ -14,6 +14,7 @@ const app = express();
 //|------------------------------------------------------|
 
 app.get("/obtener", (req, res) => {
+  console.log('entra')
      Course.find()
       // .populate("idUserType")
        .then(resp => {

@@ -14,7 +14,7 @@ let schemaOptions = {
          required: [true, 'Favor de insertar el nombre del curso']
      },
      coursePrice: {
-         type: Double,
+         type: Number,
          required: [true, 'Favor de insertar el precio']
      },
      courseImg: {
