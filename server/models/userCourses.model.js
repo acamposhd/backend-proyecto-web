@@ -10,19 +10,18 @@ let schemaOptions = {
     }
 };
 
-/*const userSchema = new Schema({
-     
-},
-idUser:{
-    type: Schema.Types.ObjectId,
-    ref: 'User',
-    required: [true, 'Favor de insertar el cliente']
-},
-idCourse:{
-     type: Schema.Types.ObjectId,
-     ref: 'Courses',
-     required: [true, 'Favor de insertar el cliente']
- }, { collection: "userCourses" }, schemaOptions);
+const userCourseSchema = new Schema({
+    idUser:{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'Favor de insertar el cliente']
+    },
+    idCourse:{
+         type: Schema.Types.ObjectId,
+         ref: 'Courses',
+         required: [true, 'Favor de insertar el cliente']
+     }
+     }, { collection: "userCourses" }, schemaOptions);
 
-module.exports = mongoose.model('UserCourses', userSchema);*/
+module.exports = mongoose.model('UserCourses', userCourseSchema);
 
