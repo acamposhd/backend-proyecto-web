@@ -23,4 +23,4 @@ let schemaOptions = {
      }
      }, { collection: "course" }, schemaOptions);
  
- module.exports = mongoose.model('Course', userSchema);
+ module.exports = mongoose.model('Course', courseSchema);
