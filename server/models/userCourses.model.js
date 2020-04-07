@@ -19,7 +19,7 @@ const userCourseSchema = new Schema({
     idCourse:{
          type: Schema.Types.ObjectId,
          ref: 'Courses',
-         required: [true, 'Favor de insertar el cliente']
+         required: [true, 'Favor de insertar el curso']
      }
      }, { collection: "userCourses" }, schemaOptions);
 
