@@ -110,8 +110,7 @@ app.get("/obtener/:strCorreo", (req, res) => {
 app.post("/registrar", (req, res) => {
   const user = new Persona(req.body);
 
-  console.log(user);
-
+//Validar si esta vacio 404 0 400
   user
     .save()
     .then(resp => {
