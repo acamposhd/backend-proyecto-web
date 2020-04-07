@@ -34,7 +34,12 @@ const userSchema = new Schema({
         },
         required: [true, 'Favor de insertar el Correo']
     },
-    idUserType:[userTypeModel.schema]
+    idUserType:{
+        type: Schema.Types.ObjectId,
+        ref: 'UserTypes',
+        required: [true, 'Favor de insertar el tipo']
+    }
 }, { collection: "user" }, schemaOptions);
+
 
 module.exports = mongoose.model('User', userSchema);
