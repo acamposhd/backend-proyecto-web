@@ -24,6 +24,14 @@ const userSchema = new Schema({
         type: String,
         required: [true, 'Favor de insertar el apellido']
     },
+    blnActive:{
+        type: Boolean,
+        default:true
+    },
+    strPassword:{
+        type: String,
+        required: [true, 'Favor de insertar la contraseña']
+    },
     strMail: {
         type: String,
         validate: {
@@ -33,7 +41,9 @@ const userSchema = new Schema({
             message: props => `${props.value} no es un correo valido`
         },
         required: [true, 'Favor de insertar el Correo']
+        
     },
+    
     idUserType:{
         type: Schema.Types.ObjectId,
         ref: 'UserTypes',

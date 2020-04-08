@@ -17,10 +17,16 @@ let schemaOptions = {
          type: Number,
          required: [true, 'Favor de insertar el precio']
      },
+
      courseImg: {
          type: String,
          required: [true, 'Favor de insertar la ruta de la imagen']
-     }
+     },
+
+     blnActive:{
+        type: Boolean,
+        default:true
+    }
      }, { collection: "course" }, schemaOptions);
  
  module.exports = mongoose.model('Course', courseSchema);
