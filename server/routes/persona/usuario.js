@@ -151,7 +151,28 @@ app.put("/actualizar/:strCorreo", (req, res) => {}); // Pendiente hasta saber co
 //| modificada por:                                         |
 //| Fecha de modificacion:                                  |
 //| cambios:                                                |
-//| Ruta: http://localhost:3000/api/persona/eliminar/a@a.com|
-app.delete("/eliminar/:strCorreo", (req, res) => {});
+//| Ruta: http://localhost:3000/api/persona/eliminar/id|
+//app.delete("/eliminar/:_id", (req, res) => {});
+
+app.delete("/eliminar/:_id", (req, res) => {
+  Persona.findByIdAndRemove(req.params._id)
+    .then(user => {
+        if(!user) {
+            return res.status(404).send({
+                message: "User not found with id " + req.params._id
+            });
+        }
+        res.send({message: "User deleted successfully!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).send({
+                message: "User not found with id " + req.params._id
+            });
+        }
+        return res.status(500).send({
+            message: "Could not delete user with id " + req.params._id
+        });
+    });
+});
 
 module.exports = app;
