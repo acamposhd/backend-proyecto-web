@@ -56,15 +56,15 @@ app.get("/obtener", (req, res) => {
 //| modificada por:                                        |
 //| Fecha de modificacion:                                 |
 //| cambios:                                               |
-//| Ruta: http://localhost:3000/api/persona/obtener/a@a.com|
+//| Ruta: http://localhost:3000/api/persona/obtener/strMail|
 //|--------------------------------------------------------|
-app.get("/obtener/:strCorreo", (req, res) => {
+app.get("/obtener/:strMail", (req, res) => {
   if (process.log) {
     console.log(req.params);
   }
-  const { strCorreo } = req.params;
+  const { strMail } = req.params;
 
-  Persona.findOne({ strCorreo: strCorreo })
+  Persona.findOne({ strMail: strMail })
     .then(resp => {
       if (resp === null) {
         res.status(404).send({

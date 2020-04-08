@@ -57,7 +57,7 @@ app.get("/obtener", (req, res) => {
 //| modificada por:                                        |
 //| Fecha de modificacion:                                 |
 //| cambios:                                               |
-//| Ruta: http://localhost:3000/api/courses/obtener/a@a.com|
+//| Ruta: http://localhost:3000/api/curso/obtener/strCourseTitle|
 //|--------------------------------------------------------|
 
 app.get("/obtener/:strCourseTitle", (req, res) => {
@@ -107,7 +107,7 @@ app.get("/obtener/:strCourseTitle", (req, res) => {
 //| modificada por:                                      |
 //| Fecha de modificacion:                               |
 //| cambios:                                             |
-//| Ruta: http://localhost:3000/api/course/registrar     |
+//| Ruta: http://localhost:3000/api/curso/registrar      |
 //|------------------------------------------------------|
 
 app.post("/registrar", (req, res) => {

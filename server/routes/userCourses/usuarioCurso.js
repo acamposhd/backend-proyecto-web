@@ -58,16 +58,16 @@ app.get("/obtener", (req, res) => {
 //| modificada por:                                        |
 //| Fecha de modificacion:                                 |
 //| cambios:                                               |
-//| Ruta: http://localhost:3000/api/userCourses/obtener/a@a.com|
+//| Ruta: http://localhost:3000/api/userCourses/obtener/idUser|
 //|--------------------------------------------------------|
 
-app.get("/obtener/:strCourseTitle", (req, res) => {
+app.get("/obtener/:idUser", (req, res) => {
      if (process.log) {
        console.log(req.params);
      }
-     const { strCourseTitle } = req.params;
+     const { idUser } = req.params;
    
-     UserCourse.findOne({ strCourseTitle: strCourseTitle })
+     UserCourse.findOne({ idUser: idUser })
        .then(resp => {
          if (resp === null) {
            res.status(404).send({
@@ -108,7 +108,7 @@ app.get("/obtener/:strCourseTitle", (req, res) => {
 //| modificada por:                                      |
 //| Fecha de modificacion:                               |
 //| cambios:                                             |
-//| Ruta: http://localhost:3000/api/course/registrar     |
+//| Ruta: http://localhost:3000/api/userCourses/registrar     |
 //|------------------------------------------------------|
 
 app.post("/registrar", (req, res) => {
@@ -121,7 +121,7 @@ app.post("/registrar", (req, res) => {
          res.status(200).send({
            estatus: "200",
            err: false,
-           msg: "Success: Curso creado correctamente.",
+           msg: "Success: Curso creado correctamente al usuario.",
            cont: {
              resp
            }
@@ -131,7 +131,7 @@ app.post("/registrar", (req, res) => {
          res.status(500).send({
            estatus: "500",
            err: true,
-           msg: "Error: Error al crear el curso.",
+           msg: "Error: Error al crear el curso al usuario.",
            cont: {
              err
            }
