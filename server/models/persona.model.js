@@ -49,7 +49,18 @@ const userSchema = new Schema({
         ref: 'UserTypes',
         required: [true, 'Favor de insertar el tipo']
     }
+    
 }, { collection: "user" }, schemaOptions);
 
-
+    jsonCursos={
+        idUser:{
+        type: Schema.Types.ObjectId,
+        ref: 'User',
+        required: [true, 'Favor de insertar el cliente']
+        },
+    idCourse:{
+        type: Schema.Types.ObjectId,
+        ref: 'Courses',
+        required: [true, 'Favor de insertar el curso']
+    }};
 module.exports = mongoose.model('User', userSchema);
