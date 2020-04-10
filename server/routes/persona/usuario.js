@@ -134,6 +134,7 @@ app.post("/registrar", (req, res) => {
       });
     });
 });
+
 //|------------------Api PUT Actualiza Persona ---------------|
 //| Creada por:                                               |
 //| Fecha: 10/03/2020                                         |
@@ -142,7 +143,82 @@ app.post("/registrar", (req, res) => {
 //| Fecha de modificacion:                                    |
 //| cambios:                                                  |
 //| Ruta: http://localhost:3000/api/persona/actualizar/a@a.com|
-app.put("/actualizar/:strCorreo", (req, res) => {}); // Pendiente hasta saber como se van a manejar los roles en el sistema
+//app.put("/actualizar/:strCorreo", (req, res) => {}); // Pendiente hasta saber como se van a manejar los roles en el sistema
+
+app.put("/actualizar/:_id", (req, res) => {
+  // Validate Request
+  if(!req.body) {
+      return res.status(400).send({
+          message: "User content can not be empty"
+      });
+  }
+
+  // Find and update user with the request body
+  Persona.findByIdAndUpdate(req.params._id, {
+      blnActive: req.body.blnActive, 
+      strFirstname: req.body.strFirstname || "No first name", 
+      strMiddleName: req.body.strMiddleName || "No middle name", 
+      strLastName: req.body.strLastName || "No last name",
+      strMail: req.body.strMail || "No mail",
+      strPassword: req.body.strPassword
+  }, {new: true})
+  .then(user => {
+      if(!user) {
+          return res.status(404).send({
+              message: "User not found with id " + req.params._id
+          });
+      }
+      res.send(user);
+  }).catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+              message: "User not found with id " + req.params._id
+          });                
+      }
+      return res.status(500).send({
+          message: "Something wrong updating note with id " + req.params._id
+      });
+  });
+});
+
+//|---------------Api CHANGE status usuario  ---------------|
+//| Creada por:                                             |
+//| Fecha: 10/03/2020                                       |
+//| Api que cambia el estado de un usuario                  |
+//| modificada por:                                         |
+//| Fecha de modificacion:                                  |
+//| cambios:                                                |
+//| Ruta: http://localhost:3000/api/persona/active/id       |
+
+app.put("/active/:_id", (req, res) => {
+  // Validate Request
+  if(!req.body) {
+    return res.status(400).send({
+        message: "User content can not be empty"
+    });
+}
+// Find and update user active
+Persona.findByIdAndUpdate(req.params._id, {
+    blnActive: req.body.blnActive
+}, {new: true})
+.then(user => {
+    if(!user) {
+        return res.status(404).send({
+            message: "User not found with id " + req.params._id
+        });
+    }
+    res.send(user);
+}).catch(err => {
+    if(err.kind === 'ObjectId') {
+        return res.status(404).send({
+            message: "User not found with id " + req.params._id
+        });                
+    }
+    return res.status(500).send({
+        message: "Something wrong updating note with id " + req.params._id
+    });
+});
+});
 
 //|---------------Api DELETE Elimina usuario ---------------|
 //| Creada por:                                             |
@@ -151,7 +227,28 @@ app.put("/actualizar/:strCorreo", (req, res) => {}); // Pendiente hasta saber co
 //| modificada por:                                         |
 //| Fecha de modificacion:                                  |
 //| cambios:                                                |
-//| Ruta: http://localhost:3000/api/persona/eliminar/a@a.com|
-app.delete("/eliminar/:strCorreo", (req, res) => {});
+//| Ruta: http://localhost:3000/api/persona/eliminar/id     |
+//app.delete("/eliminar/:_id", (req, res) => {});
+
+app.delete("/eliminar/:_id", (req, res) => {
+Persona.findByIdAndRemove(req.params._id)
+  .then(user => {
+      if(!user) {
+          return res.status(404).send({
+              message: "User not found with id " + req.params._id
+          });
+      }
+      res.send({message: "User deleted successfully!"});
+  }).catch(err => {
+      if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+          return res.status(404).send({
+              message: "User not found with id " + req.params._id
+          });
+      }
+      return res.status(500).send({
+          message: "Could not delete user with id " + req.params._id
+      });
+  });
+}); 
 
 module.exports = app;
