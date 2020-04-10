@@ -11,6 +11,10 @@ let schemaOptions = {
 };
 
 const userCourseSchema = new Schema({
+    blnActive:{
+        type: Boolean,
+        default:true
+    },
     idUser:{
         type: Schema.Types.ObjectId,
         ref: 'User',
