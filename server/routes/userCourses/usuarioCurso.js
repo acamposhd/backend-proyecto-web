@@ -139,4 +139,73 @@ app.post("/registrar", (req, res) => {
        });
    });
 
+//|---------------Api CHANGE status Usercurso  -------------|
+//| Creada por:                                             |
+//| Fecha: 10/03/2020                                       |
+//| Api que cambia el estado de un Usercurso                |
+//| modificada por:                                         |
+//| Fecha de modificacion:                                  |
+//| cambios:                                                |
+//| Ruta: http://localhost:3000/api/userCourses/active/id         |
+
+app.put("/active/:_id", (req, res) => {
+  // Validate Request
+  if(!req.body) {
+    return res.status(400).send({
+        message: "Course content can not be empty"
+    });
+}
+// Find and update course active
+UserCourse.findByIdAndUpdate(req.params._id, {
+    blnActive: req.body.blnActive
+}, {new: true})
+.then(userCourse => {
+    if(!userCourse) {
+        return res.status(404).send({
+            message: "Relation not found with id " + req.params._id
+        });
+    }
+    res.send(userCourse);
+}).catch(err => {
+    if(err.kind === 'ObjectId') {
+        return res.status(404).send({
+            message: "Relation not found with id " + req.params._id
+        });                
+    }
+    return res.status(500).send({
+        message: "Something wrong updating note with id " + req.params._id
+    });
+});
+});
+
+//|---------------Api DELETE Elimina Usuariocurso  ---------|
+//| Creada por:                                             |
+//| Fecha: 10/03/2020                                       |
+//| Api que Elimina un Usuariocurso en de la base de datos  |
+//| modificada por:                                         |
+//| Fecha de modificacion:                                  |
+//| cambios:                                                |
+//| Ruta: http://localhost:3000/api/userCourses/eliminar/id |
+
+app.delete("/eliminar/:_id", (req, res) => {
+  UserCourse.findByIdAndRemove(req.params._id)
+    .then(userCourse => {
+        if(!userCourse) {
+            return res.status(404).send({
+                message: "Realtion not found with id " + req.params._id
+            });
+        }
+        res.send({message: "Relation deleted successfully!"});
+    }).catch(err => {
+        if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+            return res.status(404).send({
+                message: "Realation not found with id " + req.params._id
+            });
+        }
+        return res.status(500).send({
+            message: "Could not delete relation with id " + req.params._id
+        });
+    });
+  }); 
+
 module.exports = app;
