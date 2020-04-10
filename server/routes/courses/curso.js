@@ -70,7 +70,7 @@ app.get("/obtener/:strCourseTitle", (req, res) => {
        .then(resp => {
          if (resp === null) {
            res.status(404).send({
-             estatus: "404",
+             estatus: "404",   
              err: true,
              msg: "Error: No se encontro el curso en la base de datos.",
              cont: {
@@ -138,24 +138,116 @@ app.post("/registrar", (req, res) => {
        });
    });
 
-//|------------------Api PUT Actualiza Curso -----------------|
+   //|------------------Api PUT Actualiza Curso ---------------|
 //| Creada por:                                               |
 //| Fecha: 10/03/2020                                         |
-//| Api que Actualiza una Persona de la base de datos         |
+//| Api que Actualiza un Curso    de la base de datos         |
 //| modificada por:                                           |
 //| Fecha de modificacion:                                    |
 //| cambios:                                                  |
-//| Ruta: http://localhost:3000/api/course/actualizar/a@a.com|
-app.put("/actualizar/:coursePrice", (req, res) => {}); // Pendiente hasta saber como se van a manejar los roles en el sistema
+//| Ruta: http://localhost:3000/api/curso/actualizar/id       |
 
-//|---------------Api DELETE Elimina Curso-- ---------------|
+app.put("/actualizar/:_id", (req, res) => {
+  // Validate Request
+  if(!req.body) {
+      return res.status(400).send({
+          message: "Course can not be empty"
+      });
+  }
+
+  // Find and update course with the request body
+  Course.findByIdAndUpdate(req.params._id, {
+      blnActive: req.body.blnActive, 
+      strCourseTitle: req.body.strCourseTitle || "No course title", 
+      coursePrice: req.body.coursePrice || "No course price"
+      //courseImg: req.body.courseImg || "No course img",
+  }, {new: true})
+  .then(course => {
+      if(!course) {
+          return res.status(404).send({
+              message: "Course not found with id " + req.params._id
+          });
+      }
+      res.send(course);
+  }).catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+              message: "Course not found with id " + req.params._id
+          });                
+      }
+      return res.status(500).send({
+          message: "Something wrong updating note with id " + req.params._id
+      });
+  });
+});
+
+//|---------------Api CHANGE status curso  -----------------|
 //| Creada por:                                             |
 //| Fecha: 10/03/2020                                       |
-//| Api que Elimina un usuario en de la base de datos       |
+//| Api que cambia el estado de un curso                    |
 //| modificada por:                                         |
 //| Fecha de modificacion:                                  |
 //| cambios:                                                |
-//| Ruta: http://localhost:3000/api/course/eliminar/a@a.com|
-app.delete("/eliminar/:coursePrice", (req, res) => {});
+//| Ruta: http://localhost:3000/api/curso/active/id         |
+
+app.put("/active/:_id", (req, res) => {
+  // Validate Request
+  if(!req.body) {
+    return res.status(400).send({
+        message: "Course content can not be empty"
+    });
+}
+// Find and update course active
+Course.findByIdAndUpdate(req.params._id, {
+    blnActive: req.body.blnActive
+}, {new: true})
+.then(course => {
+    if(!course) {
+        return res.status(404).send({
+            message: "Course not found with id " + req.params._id
+        });
+    }
+    res.send(course);
+}).catch(err => {
+    if(err.kind === 'ObjectId') {
+        return res.status(404).send({
+            message: "Course not found with id " + req.params._id
+        });                
+    }
+    return res.status(500).send({
+        message: "Something wrong updating note with id " + req.params._id
+    });
+});
+});
+
+//|---------------Api DELETE Elimina curso   ---------------|
+//| Creada por:                                             |
+//| Fecha: 10/03/2020                                       |
+//| Api que Elimina un curso en de la base de datos         |
+//| modificada por:                                         |
+//| Fecha de modificacion:                                  |
+//| cambios:                                                |
+//| Ruta: http://localhost:3000/api/curso/eliminar/id       |
+
+app.delete("/eliminar/:_id", (req, res) => {
+Course.findByIdAndRemove(req.params._id)
+  .then(course => {
+      if(!course) {
+          return res.status(404).send({
+              message: "Course not found with id " + req.params._id
+          });
+      }
+      res.send({message: "Course deleted successfully!"});
+  }).catch(err => {
+      if(err.kind === 'ObjectId' || err.name === 'NotFound') {
+          return res.status(404).send({
+              message: "Course not found with id " + req.params._id
+          });
+      }
+      return res.status(500).send({
+          message: "Could not delete course with id " + req.params._id
+      });
+  });
+}); 
 
 module.exports = app;
