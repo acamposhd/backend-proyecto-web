@@ -4,6 +4,7 @@
   "description": "backend para el proyecto web",
   "main": "index.js",
   "scripts": {
+    "start": "node server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
@@ -20,7 +21,7 @@
     "express-fileupload": "^1.1.7-alpha.2",
     "fs": "0.0.1-security",
     "mongoose": "^5.9.7",
-    "nodemon": "^2.0.2",
+    "nodemon": "^2.0.3",
     "uniqid": "^5.2.0"
   }
 }
