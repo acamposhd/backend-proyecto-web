@@ -3,6 +3,9 @@ const Persona = require("../../models/persona.model");
 const UserType = require("../../models/personaTypes.model");
 const express = require("express");
 const app = express();
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const SECRET_KEY = 'secretkey12456';
 
 //|-------------Api GET Listado de Personas -------------|
 //| Creada por: JACR                                     |
@@ -109,11 +112,24 @@ app.get("/obtener/:strMail", (req, res) => {
 //|------------------------------------------------------|
 app.post("/registrar", (req, res) => {
   const user = new Persona(req.body);
-
+  user.strPassword = bcrypt.hashSync(req.body.strPassword);
 //Validar si esta vacio 404 0 400
   user
     .save()
     .then(resp => {
+        const expiresIn = 24 * 60 * 60;
+        const accessToken = jwt.sign({id: req.params._id},
+          SECRET_KEY, {
+            expiresIn: expiresIn
+          });
+          const dataUser = {
+            strFirstname : user.strFirstname,
+            strMiddleName : user.strMiddleName,
+            strLastName : user.strLastName,
+            strMail: user.strMail,
+            accessToken: accessToken,
+            expiresIn: expiresIn
+          }
       res.status(200).send({
         estatus: "200",
         err: false,
@@ -122,6 +138,7 @@ app.post("/registrar", (req, res) => {
           resp
         }
       });
+      res.send(user);
     })
     .catch(err => {
       res.status(500).send({
@@ -250,5 +267,60 @@ Persona.findByIdAndRemove(req.params._id)
       });
   });
 }); 
+
+//|---------------Api LogIn usuario ---------------|
+//| Creada por:                                             |
+//| Fecha: 10/03/2020                                       |
+//| Api que hace el login un usuario                        |
+//| modificada por:                                         |
+//| Fecha de modificacion:                                  |
+//| cambios:                                                |
+//| Ruta: http://localhost:3000/api/persona/login           |
+
+app.put("/login", (req, res) => {
+  // Validate Request
+  if(!req.body) {
+      return res.status(400).send({
+          message: "login content can not be empty"
+      });
+  }
+    const userData ={
+      strMail: req.body.strMail,
+      strPassword: req.body.strPassword
+    } 
+  // Find and update user with the request body
+  Persona.findOne({strMail: userData.strMail})
+  .then(user => {
+      if(!user) {
+          return res.status(404).send({
+              message: "User not found with email " + strMail
+          });
+      }
+        const resultPassword = bcrypt.compareSync(userData.strPassword, user.strPassword)
+        if(resultPassword){
+        const expiresIn = 24 * 60 * 60;
+        const accessToken = jwt.sign({ id: req.params._id },SECRET_KEY, { expiresIn: expiresIn});
+
+        const dataUser = {
+          strFirstname : user.strFirstname,
+          strMiddleName : user.strMiddleName,
+          strLastName : user.strLastName,
+          strMail: user.strMail,
+          accessToken: accessToken,
+          expiresIn: expiresIn
+        }
+
+      res.send(dataUser)};
+  }).catch(err => {
+      if(err.kind === 'ObjectId') {
+          return res.status(404).send({
+              message: "User not found with id " + req.params._id
+          });                
+      }
+      return res.status(500).send({
+          message: "Something wrong updating note with id " + req.params._id
+      });
+  });
+});
 
 module.exports = app;
