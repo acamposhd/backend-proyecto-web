@@ -277,7 +277,7 @@ Persona.findByIdAndRemove(req.params._id)
 //| cambios:                                                |
 //| Ruta: http://localhost:3000/api/persona/login           |
 
-app.put("/login", (req, res) => {
+app.post("/login", (req, res) => {
   // Validate Request
   if(!req.body) {
       return res.status(400).send({
@@ -311,6 +311,7 @@ app.put("/login", (req, res) => {
         }
 
       res.send(dataUser)};
+      res.send(dataUser);
   }).catch(err => {
       if(err.kind === 'ObjectId') {
           return res.status(404).send({
