@@ -1,0 +1,89 @@
+<div class="container">
+    <h2>Toggleable Tabs</h2>
+    <br>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#home">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" [routerLink] = "['/user']">Log out</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="home" class="container tab-pane active"><br>
+            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#addCourseModale">Add
+                Course</button>
+            <!-- The Modal -->
+            <div class="modal" id="myModal">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">Modal Heading</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            Modal body..
+                        </div>
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt-3">
+                <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Course-id</th>
+                            <th>Course-name</th>
+                            <th>Course-price</th>
+                            <th>Course-img</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="myTable">
+                        <!--<i class="fas fa-check-circle" style="color: green;"></i>-->
+                        <tr>
+                            <td>1</td>
+                            <td>JavaScript</td>
+                            <td>$120</td>
+                            <td><img src="img/course1.png"></td>
+                            <td> <button type="button" class="btn btn-link" data-toggle="modal"
+                                    data-target="#EditCourseModale">Edit Course
+                                </button></td>
+                            <td><button><i class="fas fa-ban" style="color: red;"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>JavaScript</td>
+                            <td>$120</td>
+                            <td><img src="img/course1.png"></td>
+                            <td> <button type="button" class="btn btn-link" data-toggle="modal"
+                                    data-target="#EditCourseModale">Edit Course
+                                </button></td>
+                            <td><button><i class="fas fa-ban" style="color: red;"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>PHP</td>
+                            <td>$120</td>
+                            <td><img src="img/course1.png"></td>
+                            <td> <button type="button" class="btn btn-link" data-toggle="modal"
+                                    data-target="#EditCourseModale">Edit Course
+                                </button></td>
+                            <td><button><i class="fas fa-ban" style="color: red;"></i></button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

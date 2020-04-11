@@ -1,0 +1,32 @@
+<header id="header" class="header">
+    <div class="container">
+        <div class="row">
+            <div class="four columns">
+                <img src="../assets/images/logo.png" id="logo">
+            </div>
+        </div>
+        <div class="two columns u-pull-right" style="margin-left: 55%;">
+            <ul *ngIf="sesion">
+                <li class="submenu">
+                    <img src="../assets/images/cart.png" id="img-carrito">
+                    <div id="carrito">
+
+                        <table id="lista-carrito" class="u-full-width">
+                            <thead>
+                                <tr>
+                                    <th>Imagen</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+
+                        <a href="#" id="vaciar-carrito" class="button u-full-width">Empty Cart</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>
