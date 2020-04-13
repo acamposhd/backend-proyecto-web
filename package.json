@@ -14,10 +14,20 @@
   "author": "Fernanda Madrigal",
   "license": "MIT",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+<<<<<<< HEAD
     "mongoose": "^5.9.7",
     "nodemon": "^2.0.3"
+=======
+    "express-fileupload": "^1.1.7-alpha.2",
+    "fs": "0.0.1-security",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.7",
+    "nodemon": "^2.0.2",
+    "uniqid": "^5.2.0"
+>>>>>>> 65b48139cb17a949b7548903d4c2321906ad7a75
   }
 }

@@ -8,10 +8,10 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
 // Base de Datos
 if (process.env.NODE_ENV === 'dev') {
-    process.env.URLDB = "mongodb+srv://admin:database1@testcluster-lapot.mongodb.net/test?retryWrites=true&w=majority";
+    process.env.URLDB = "mongodb+srv://admin:database1@testcluster-lapot.mongodb.net/on-courses?retryWrites=true&w=majority";
     process.log = true;
 } else {
-    process.env.URLDB = "mongodb+srv://admin:database1@testcluster-lapot.mongodb.net/test?retryWrites=true&w=majority";
+    process.env.URLDB = "mongodb+srv://admin:database1@testcluster-lapot.mongodb.net/on-courses?retryWrites=true&w=majority";
     process.log = false;
 }
 
