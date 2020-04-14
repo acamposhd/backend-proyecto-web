@@ -319,7 +319,7 @@ app.post("/login", (req, res) => {
           });                
       }
       return res.status(500).send({
-          message: "Something wrong updating note with id " + req.params._id
+          message: "Something wrong"
       });
   });
 });
