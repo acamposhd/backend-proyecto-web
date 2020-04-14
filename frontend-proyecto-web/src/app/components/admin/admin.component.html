@@ -1,5 +1,4 @@
 <div class="container">
-    <h2>Toggleable Tabs</h2>
     <br>
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
@@ -17,17 +16,30 @@
             <button type="button" class="btn btn-link" data-toggle="modal" data-target="#addCourseModale">Add
                 Course</button>
             <!-- The Modal -->
-            <div class="modal" id="myModal">
+            <div class="modal" id="addCourseModale">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <!-- Modal Header -->
                         <div class="modal-header">
-                            <h4 class="modal-title">Modal Heading</h4>
+                            <h4 class="modal-title">New Course</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <!-- Modal body -->
                         <div class="modal-body">
-                            Modal body..
+                            <form action="#" class="needs-validation" novalidate>
+                                <label for="title">Course Title:</label>
+                                <input type="text" class="form-control " id="course_title" required>
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                                <label for="price">Course Price:</label>
+                                <input type="number" class="form-control" id="course_price" required>
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                                <label for="img">Course Image:</label>
+                                <input type="file" class="form-control" id="course_img" required>
+                                <div class="valid-feedback">Valid.</div>
+                                <div class="invalid-feedback">Please fill out this field.</div>
+                            </form>
                         </div>
                         <!-- Modal footer -->
                         <div class="modal-footer">
