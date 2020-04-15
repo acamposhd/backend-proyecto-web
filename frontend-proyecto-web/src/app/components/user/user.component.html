@@ -11,7 +11,7 @@
         <li class="nav-item">
             <a class="nav-link" data-toggle="tab" href="#myCourses">My Courses</a>
         </li>
-       
+
         <li class="nav-item">
             <button type="button" class="btn btn-link" data-toggle="tab" [routerLink] = "['/user']">Log Out
 
@@ -22,8 +22,8 @@
 
     </ul>
 </div>
-        
-    
+
+
 <!-- Tab panes -->
 <div class="tab-content">
 <div id="home" class="container tab-pane active"><br>
@@ -77,7 +77,7 @@
                     <p>Juan Pedro</p>
                     <img src="../assets/images/estrellas.png">
                     <p class="precio">$200 <span class="u-pull-right ">$15</span></p>
-                    <a href="#" class="u-full-width button-primary button input agregar-carrito" data-id="0">
+                    <a (click)="comprarCurso($event)" class="u-full-width button-primary button input agregar-carrito" data-id="0">
                         Add to cart</a>
                 </div>
             </div>
@@ -274,8 +274,8 @@
     <h3>My Courses</h3>
 
     <div class="container mt-3">
-       
-        
+
+
         <table class="table table-bordered">
           <thead>
             <tr>
@@ -300,13 +300,13 @@
               <td>Ajax</td>
               <td>120hrs</td>
             </tr>
-            
+
           </tbody>
         </table>
-        
-        
+
+
       </div>
-      
+
       <script>
       $(document).ready(function(){
         $("#myInput").on("keyup", function() {
