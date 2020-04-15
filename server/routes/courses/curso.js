@@ -10,7 +10,7 @@ const app = express();
 //| modificada por:                                      |
 //| Fecha de modificacion:                               |
 //| cambios:                                             |
-//| Ruta: http://localhost:3000/api/courses/obtener      |
+//| Ruta: http://localhost:3000/api/curso/obtener        |
 //|------------------------------------------------------|
 
 app.get("/obtener", (req, res) => {
